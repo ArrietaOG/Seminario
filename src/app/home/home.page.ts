@@ -3,6 +3,8 @@ import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/stan
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { IonButton } from '@ionic/angular/standalone';
+
 
 
 @Component({
@@ -10,10 +12,14 @@ import { CommonModule } from '@angular/common';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent,CommonModule],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent,CommonModule, IonButton],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomePage {
+coloruno = 'var(--color-uno)';
+colordos = 'var(--color-dos)';
+colorActual = this.coloruno;
+
   genres = [
     {
       title: "Musica clasica",
@@ -31,5 +37,12 @@ export class HomePage {
       description: "La salsa es un género musical bailable, popularizado en Nueva York en los años 60/70, que fusiona ritmos afrocubanos (son, mambo, guaracha, son montuno) con jazz y elementos puertorriqueños. Se caracteriza por su compás de 4/4, percusión intensa (congas, bongó, timbales), piano, metales y letras sobre vida, amor y cultura caribeña. ",
     }
   ]
+
+cambiarcolor() {
+  this.colorActual = this.colorActual === this.coloruno ? this.colordos : this.coloruno;
+
+
+
+  }
   constructor() {}
 }

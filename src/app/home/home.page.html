@@ -6,7 +6,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [style.--background]="colorActual">
   <swiper-container
   pagination='true'
   loop='true'
@@ -21,4 +21,10 @@
 
   </swiper-slide>
 </swiper-container>
+
+<ion-button (click)="cambiarcolor()">
+  Cambiar Tema
+</ion-button>
+
+
 </ion-content>
