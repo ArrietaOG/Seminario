@@ -6,6 +6,8 @@
   </ion-toolbar>
 </ion-header>
 
+  <ion-button (click)="goBack()">Ir al intro</ion-button>
+
 <ion-content [style.--background]="colorActual">
   <swiper-container
   pagination='true'
@@ -26,5 +28,18 @@
   Cambiar Tema
 </ion-button>
 
+<!-- DEMO STORAGE -->
+
+<div>
+  <h3>demo ionic storage</h3>
+  <div [style.background-color]="colorActual">
+    <p>Tema actual: {{ colorActual === coloruno ? 'Rojo' : 'Azul'}}</p>
+
+  </div>
+</div>
+
+<div>
+  <ion-button (click)="cambiarcolor()">Cambiar Tema y Guardar</ion-button>
+</div>
 
 </ion-content>

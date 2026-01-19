@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { IonButton } from '@ionic/angular/standalone';
+import { StorageService } from '../services/storage.service';
+import { Router } from '@angular/router'
 
 
 
@@ -15,7 +17,7 @@ import { IonButton } from '@ionic/angular/standalone';
   imports: [IonHeader, IonToolbar, IonTitle, IonContent,CommonModule, IonButton],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class HomePage {
+export class HomePage implements OnInit {
 coloruno = 'var(--color-uno)';
 colordos = 'var(--color-dos)';
 colorActual = this.coloruno;
@@ -38,11 +40,41 @@ colorActual = this.coloruno;
     }
   ]
 
-cambiarcolor() {
+async cambiarcolor() {
   this.colorActual = this.colorActual === this.coloruno ? this.colordos : this.coloruno;
+  await this.storageService.set('theme', this.colorActual)
+  console.log('Tema guardado: ', this.colorActual)
 
 
 
   }
-  constructor() {}
-}
+  constructor(private storageService: StorageService, private router: Router) {}
+
+  async ngOnInit() {
+    await this.LoadStorageData();
+    const introVisto = await this.storageService.get('introVisto');
+    if (!introVisto) {
+    this.router.navigateByUrl('/intro');
+    return;
+  }
+
+  await this.LoadStorageData();
+  }
+
+  async LoadStorageData(){
+    const savedTheme = await this.storageService.get('theme')
+    if (savedTheme){
+      this.colorActual = savedTheme;
+    }
+  }
+
+    goBack(){
+    console.log("Ir al intro")
+    this.router.navigateByUrl('/intro')
+  }
+
+  
+
+
+  }
+
