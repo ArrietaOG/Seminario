@@ -30,7 +30,7 @@ export class IntroPage implements OnInit {
   }
 
   goBack() {
-    console.log("Guardando intro visto");
+    console.log("Guardando, intro visto");
     this.storageService.set('introVisto', true);
     this.router.navigateByUrl('/home');
   }
