@@ -56,7 +56,6 @@ async cambiarcolor() {
     if (!introVisto) {
     this.router.navigateByUrl('/intro');
     return;
-    this.simularCargaDatos();
   }
 
   await this.LoadStorageData();
@@ -73,24 +72,6 @@ async cambiarcolor() {
     console.log("Ir al intro")
     this.router.navigateByUrl('/intro')
   }
-
-  async simularCargaDatos() {
-  const data = await this.obtenerDatoSimulados();
-  console.log('Datos simulados: ', data)
-}
-
-obtenerDatoSimulados(){
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve (['Rock', 'Vallenato', 'Trap'])
-    }, 1500)
-  })
-}
-
-verIntro() {
-    this.router.navigateByUrl('/intro');
-  }
-
 
   }
 

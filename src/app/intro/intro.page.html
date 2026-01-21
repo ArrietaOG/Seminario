@@ -1,14 +1,39 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>intro</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Intro</ion-title>
   </ion-toolbar>
 </ion-header>
 
-  <ion-button shape="round" (click)="goBack()">Volver</ion-button>
-
 <ion-content>
 
-  <ion-title>Soy intro</ion-title>
+  <swiper-container
+    pagination="true"
+    slides-per-view="1"
+  >
 
+    <swiper-slide *ngFor="let genre of genres; let i = index">
+
+      <div class="slide-container ion-text-center" [ngClass]="colorActual">
+
+        <img *ngIf="genre.image" [src]="genre.image" />
+
+        <h2>{{ genre.title }}</h2>
+        <p>{{ genre.description }}</p>
+
+        <!-- BOTÓN SOLO EN EL ÚLTIMO SLIDE -->
+        <ion-button
+          *ngIf="i === genres.length - 1"
+          shape="round"
+          expand="block"
+          (click)="goBack()"
+        >
+          Ir al Home
+        </ion-button>
+
+      </div>
+
+    </swiper-slide>
+
+  </swiper-container>
 
 </ion-content>

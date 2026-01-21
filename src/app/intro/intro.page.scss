@@ -1,0 +1,49 @@
+.slide-container {
+  height: 100%;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide-container img {
+  width: 220px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.color-base {
+  background: black;
+  color: white;
+}
+
+.color-uno {
+  background: var(--color-uno);
+}
+
+.color-dos {
+  background: var(--color-dos);
+}
+
+ion-content {
+  --background: linear-gradient(
+    135deg,
+    #0f2027,
+    #203a43,
+    #2c5364
+  );
+}
+
+
+swiper-container {
+  height: 100%;
+}
+
+swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
