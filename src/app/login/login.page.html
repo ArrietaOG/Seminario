@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="login-content">
+  
+  <figure class="profile-default-img ion-text-center">
+    <p>Ingresa tus datos</p>
+    <img src="https://static.vecteezy.com/system/resources/previews/024/983/914/non_2x/simple-user-default-icon-free-png.png">
+  </figure>
+
+  <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)">
+    <ion-item class="input-item">
+      <ion-input label="Email" labelPlacement="floating" placeholder="Escribe tu email" formControlName="email">
+        <div slot="label">Email <ion-text color="danger">(Required)</ion-text></div>
+      </ion-input>
+    </ion-item>
+    <div>
+      <ng-container *ngFor="let validation of validation_messages.email">
+        <div class="error-message" 
+        *ngIf="(loginForm.get('email')?.hasError(validation.type) && loginForm.get('email')?.dirty )">
+          {{validation.message}}
+        </div>
+      </ng-container>
+    </div>
+    <ion-item class="input-item">
+      <ion-input type="password" label="Contraseña" labelPlacement="floating" placeholder="Escribe tu Contraseña" formControlName="password">
+        <div slot="label">Password <ion-text color="danger">(Required)</ion-text></div>
+      </ion-input>
+    </ion-item>
+      <div>
+      <ng-container *ngFor="let validation of validation_messages.password">
+        <div class="error-message"
+         *ngIf="(loginForm.get('password')?.hasError(validation.type) && loginForm.get('password')?.dirty )">
+          {{validation.message}}
+        </div>
+      </ng-container>
+    </div>
+      <ion-button
+  expand="full"
+  shape="round"
+  color="success"
+  [disabled]="!loginForm.valid"
+  type="submit"
+  >
+    Login
+  </ion-button>
+  </form>  
+</ion-content>
