@@ -25,11 +25,24 @@
         </div>
       </ng-container>
     </div>
-    <ion-item class="input-item">
-      <ion-input type="password" label="Contraseña" labelPlacement="floating" placeholder="Escribe tu Contraseña" formControlName="password">
-        <div slot="label">Password <ion-text color="danger">(Required)</ion-text></div>
-      </ion-input>
-    </ion-item>
+
+<ion-item class="input-item">
+
+  <ion-input
+    [type]="mostrarPassword ? 'text' : 'password'"
+    label="Contraseña"
+    labelPlacement="floating"
+    placeholder="Escribe tu Contraseña"
+    formControlName="password">
+  </ion-input>
+
+  <ion-button fill="clear" slot="end" (click)="togglePassword()">
+    <ion-icon [name]="mostrarPassword ? 'eye-off' : 'eye'"></ion-icon>
+  </ion-button>
+
+</ion-item>
+
+
       <div>
       <ng-container *ngFor="let validation of validation_messages.password">
         <div class="error-message"
@@ -47,5 +60,13 @@
   >
     Login
   </ion-button>
-  </form>  
+  </form>
+
+<ion-button expand="full" fill="clear" routerLink="/register">
+  ¿No te has registrado? Registrate
+</ion-button>
+
+
+
+  {{errorMessage}}
 </ion-content>

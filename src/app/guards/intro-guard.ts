@@ -12,15 +12,22 @@ export class IntroGuard implements CanActivate {
     private router: Router
   ) {}
 
-  async canActivate(): Promise<boolean> {
+async canActivate(): Promise<boolean> {
 
-    const introVisto = await this.storageService.get('introVisto');
+  const introVisto = await this.storageService.get('introVisto');
+  const isLogged = await this.storageService.get('login');
 
-    if (introVisto) {
-      return true;
-    } else {
-      this.router.navigateByUrl('/intro');
-      return false;
-    }
+  if (!introVisto) {
+    this.router.navigateByUrl('/intro');
+    return false;
   }
+
+  if (!isLogged) {
+    this.router.navigateByUrl('/login');
+    return false;
+  }
+
+  return true;
+}
+
 }

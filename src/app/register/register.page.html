@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="register-content">
+
+  <div class="register-container animate">
+
+    <figure class="profile-img ion-text-center">
+      <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
+      <h2>Crear cuenta</h2>
+      <p>Completa los datos para registrarte</p>
+    </figure>
+
+    <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+
+      <ion-item>
+        <ion-input label="Nombre" labelPlacement="floating" formControlName="nombre"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Apellido" labelPlacement="floating" formControlName="apellido"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Email" labelPlacement="floating" formControlName="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          [type]="mostrarPassword ? 'text' : 'password'"
+          label="Contraseña"
+          labelPlacement="floating"
+          formControlName="password">
+        </ion-input>
+
+        <ion-button fill="clear" slot="end" (click)="togglePassword()">
+          <ion-icon [name]="mostrarPassword ? 'eye-off' : 'eye'"></ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <ion-text color="danger" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </ion-text>
+
+      <ion-button expand="full" shape="round" type="submit" class="btn-register">
+        Registrarse
+      </ion-button>
+
+    </form>
+
+    <ion-button fill="clear" expand="full" (click)="goToLogin()">
+      ¿Ya tienes cuenta? Inicia sesión
+    </ion-button>
+
+  </div>
+
+</ion-content>

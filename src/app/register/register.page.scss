@@ -1,0 +1,59 @@
+.register-content {
+  --background: linear-gradient(135deg, #1e1e2f, #3a3a5a);
+}
+
+.register-container {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  margin: 40px 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.profile-img img {
+  width: 90px;
+  margin-bottom: 10px;
+}
+
+.profile-img h2 {
+  margin: 0;
+  font-weight: bold;
+}
+
+.profile-img p {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Animación */
+.animate {
+  animation: fadeSlide 0.8s ease-in-out;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+ion-item {
+  margin-bottom: 12px;
+  border-radius: 12px;
+}
+
+.btn-register {
+  margin-top: 15px;
+}
+
+ion-button {
+  transition: transform 0.2s ease;
+}
+
+ion-button:active {
+  transform: scale(0.95);
+}

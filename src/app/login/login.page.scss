@@ -60,3 +60,12 @@ ion-input {
   padding: 6px 10px;
   border-radius: 8px;
 }
+
+ion-icon {
+  font-size: 22px;
+  color: rgb(0, 0, 0);
+}
+
+ion-button[slot="end"] {
+  --color: rgb(0, 0, 0);
+}
