@@ -36,6 +36,7 @@ async registerUser(data: any): Promise<any> {
       reject('Error en el registro');
     }
   });
+  
 }
 
 

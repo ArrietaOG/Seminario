@@ -5,7 +5,7 @@ export const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'menu/home',
     pathMatch: 'full',
   },
 
@@ -30,7 +30,7 @@ export const routes: Routes = [
     children:[
       {
         path: 'home',
-        loadChildren: () => import('./home/home.page').then(m => m.HomePage),
+        loadComponent: () => import('./home/home.page').then(m => m.HomePage),
         canActivate: [IntroGuard]
       },
     ]
