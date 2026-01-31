@@ -54,6 +54,6 @@ export class IntroPage implements OnInit {
 
   goBack() {
     this.storageService.set('introVisto', true);
-    this.router.navigateByUrl('/home');
+    this.router.navigateByUrl('menu/home');
   }
 }

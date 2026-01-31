@@ -1,15 +1,31 @@
 <ion-split-pane contentId="main-content">
   <ion-menu contentId="main-content">
+
     <ion-header>
-      <ion-toolbar>
+      <ion-toolbar color="primary">
         <ion-title>Menu</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content>
-      <ion-list>
-        <ion-item (click)="goToIntro()">Ver intro</ion-item>
-      </ion-list>
+
+    <ion-content class="menu-content">
+
+      <div class="menu-top">
+        <ion-list>
+          <ion-item button (click)="goToIntro()">
+            Ver intro
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <div class="menu-bottom">
+        <ion-button expand="full" color="danger" (click)="logout()">
+          Cerrar sesión
+        </ion-button>
+      </div>
+
     </ion-content>
+
   </ion-menu>
+
   <ion-router-outlet id="main-content"></ion-router-outlet>
 </ion-split-pane>

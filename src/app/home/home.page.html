@@ -16,15 +16,15 @@
   pagination='true'
   loop='true'
   >
-  
-  <swiper-slide *ngFor="let genre of genres">
+
+    <swiper-slide *ngFor="let album of albums">
     <div class="slide-content">
-      <h2>{{ genre.title }}</h2>
-      <img [src]="genre.image" [alt]="genre.title">
-      <p>{{ genre.description }}</p>
+      <img [src]="album.image"/>
+      <p>{{ album.name }}</p>
     </div>
 
   </swiper-slide>
+
 </swiper-container>
 
 

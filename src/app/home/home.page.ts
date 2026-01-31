@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { IonButton } from '@ionic/angular/standalone';
 import { StorageService } from '../services/storage.service';
 import { Router } from '@angular/router'
-
+import { MusicService } from '../services/music.service';
 
 
 @Component({
@@ -48,10 +48,16 @@ async cambiarcolor() {
 
 
   }
-  constructor(private storageService: StorageService, private router: Router) {}
+  tracks: any;
+  albums: any;
+  localArtists: any;
+  constructor(private storageService: StorageService, private router: Router, private musicService: MusicService) {}
 
   async ngOnInit() {
     await this.LoadStorageData();
+    this.loadTracks();
+    this.loadAlbums();
+    this.getLocalArtists();
     const introVisto = await this.storageService.get('introVisto');
     if (!introVisto) {
     this.router.navigateByUrl('/intro');
@@ -68,10 +74,30 @@ async cambiarcolor() {
     }
   }
 
+  loadTracks() {
+    this.musicService.getTracks().then(tracks => {
+      this.tracks = tracks;
+      console.log(this.tracks, "las canciones")
+    })
+  }
+
+  loadAlbums() {
+    this.musicService.getAlbums().then(albums => {
+      this.albums = albums;
+      console.log(this.albums, "los albums")
+    })
+  }
+
     goBack(){
     console.log("Ir al intro")
     this.router.navigateByUrl('/intro')
   }
+
+  getLocalArtists() {
+    this.localArtists = this.musicService.getLocalArtists();
+    console.log("Artistas: ",this.localArtists.artists)
+  }
+
 
   }
 

@@ -57,23 +57,30 @@ addIcons({ eye, eyeOff });
 
   ngOnInit() {}
 
-async loginUser(credentials: any) {
-  console.log(credentials);
+async loginUser() {
 
-  this.authService.loginUser(credentials)
-    .then(async res => {
+  const credentials = this.loginForm.value;
 
-      this.errorMessage = "";
+  const user = await this.storageService.get('user');
+  console.log("Usuario guardado:", user);
+  console.log("Credenciales:", credentials);
 
-      await this.storageService.set('login', true);
+  if (!user) {
+    this.errorMessage = "No hay usuario registrado";
+    return;
+  }
 
-      this.nvCrtl.navigateForward("/intro");
-
-    })
-    .catch(error => {
-      this.errorMessage = error;
-    });
+  if (
+    user.email === credentials.email &&
+    user.password === credentials.password
+  ) {
+    await this.storageService.set('login', true);
+    this.nvCrtl.navigateForward('/intro');
+  } else {
+    this.errorMessage = "Email o contraseña incorrectos";
+  }
 }
+
 
 goToRegister() {
   this.nvCrtl.navigateForward('/register');
@@ -81,7 +88,10 @@ goToRegister() {
 async ionViewWillEnter() {
   const user = await this.storageService.get('user');
   console.log('Usuario en storage:', user);
+  
 }
+
+
 
 
 }

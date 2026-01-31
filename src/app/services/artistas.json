@@ -1,0 +1,71 @@
+{"artists": [
+  {
+    "nombre": "Luna Rivera",
+    "genero": "Pop",
+    "pais": "Colombia",
+    "anios_activo": "2012 - presente",
+    "albumes": [
+      {
+        "titulo": "Luz de Luna",
+        "anio": 2014
+      },
+      {
+        "titulo": "Ecos del Alma",
+        "anio": 2018
+      }
+    ]
+  },
+  {
+    "nombre": "DJ Neón",
+    "genero": "Electrónica",
+    "pais": "España",
+    "anios_activo": "2010 - presente",
+    "albumes": [
+      {
+        "titulo": "Ritmo Futuro",
+        "anio": 2013
+      },
+      {
+        "titulo": "Conexión Digital",
+        "anio": 2017
+      }
+    ]
+  },
+  {
+    "nombre": "Sombra Rebelde",
+    "genero": "Rock",
+    "pais": "México",
+    "anios_activo": "2005 - 2020",
+    "albumes": [
+      {
+        "titulo": "A Través del Caos",
+        "anio": 2007
+      },
+      {
+        "titulo": "Resistencia",
+        "anio": 2012
+      },
+      {
+        "titulo": "Despedida",
+        "anio": 2020
+      }
+    ]
+  },
+  {
+    "nombre": "Carmen Beat",
+    "genero": "Reggaetón",
+    "pais": "Puerto Rico",
+    "anios_activo": "2015 - presente",
+    "albumes": [
+      {
+        "titulo": "Latina Fuego",
+        "anio": 2016
+      },
+      {
+        "titulo": "Reina del Ritmo",
+        "anio": 2019
+      }
+    ]
+  }
+]
+}

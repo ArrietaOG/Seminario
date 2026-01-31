@@ -5,13 +5,15 @@
 </ion-header>
 
 <ion-content class="login-content">
-  
-  <figure class="profile-default-img ion-text-center">
+
+  <div class="login-box">
+
+  <figure class="profile-default-img">
     <p>Ingresa tus datos</p>
     <img src="https://static.vecteezy.com/system/resources/previews/024/983/914/non_2x/simple-user-default-icon-free-png.png">
   </figure>
 
-  <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)">
+  <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
     <ion-item class="input-item">
       <ion-input label="Email" labelPlacement="floating" placeholder="Escribe tu email" formControlName="email">
         <div slot="label">Email <ion-text color="danger">(Required)</ion-text></div>
@@ -58,13 +60,17 @@
   [disabled]="!loginForm.valid"
   type="submit"
   >
-    Login
+    Iniciar sesion
   </ion-button>
   </form>
 
-<ion-button expand="full" fill="clear" routerLink="/register">
-  ¿No te has registrado? Registrate
-</ion-button>
+<div class="register-card">
+  <p>¿No tienes cuenta?</p>
+  <ion-button fill="outline" shape="round" (click)="goToRegister()">
+    Crear cuenta
+  </ion-button>
+</div>
+</div>
 
 
 
