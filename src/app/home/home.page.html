@@ -1,44 +1,50 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      HOME
-    </ion-title>
+    <ion-title>HOME</ion-title>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-  <ion-button shape="round" (click)="goBack()">Ir al intro</ion-button>
-
 <ion-content [style.--background]="colorActual">
-  <swiper-container
-  pagination='true'
-  loop='true'
-  >
 
-    <swiper-slide *ngFor="let album of albums">
-    <div class="slide-content">
-      <img [src]="album.image"/>
-      <p>{{ album.name }}</p>
-    </div>
+  <ion-button expand="full" shape="round" (click)="goBack()">
+    Ir al intro
+  </ion-button>
 
-  </swiper-slide>
+  <swiper-container 
+    slides-per-view="1.2"
+    space-between="15"
+    pagination="true"
+    centered-slides="true"
+    loop="true">
 
-</swiper-container>
+    <swiper-slide 
+      *ngFor="let artist of artists"
+      (click)="showSongsByArtist(artist.id)">
 
+      <div class="artist-card">
 
+        <img 
+          [src]="artist.image"
+          class="artist-img">
 
-<div>
-  <h3>demo ionic storage</h3>
-  <div [style.background-color]="colorActual">
-    <p>Tema actual: {{ colorActual === coloruno ? 'Azul' : 'Negro'}}</p>
+        <h3>{{ artist.name }}</h3>
 
+      </div>
+
+    </swiper-slide>
+
+  </swiper-container>
+
+  <div class="storage-box">
+    <h3>Demo Ionic Storage</h3>
+    <p>Tema actual: {{ colorActual === coloruno ? 'Azul' : 'Negro' }}</p>
   </div>
-</div>
 
-<div>
-  <ion-button shape="round" (click)="cambiarcolor()">Cambiar Tema y Guardar</ion-button>
-</div>
+  <ion-button expand="full" shape="round" (click)="cambiarcolor()">
+    Cambiar Tema y Guardar
+  </ion-button>
 
 </ion-content>

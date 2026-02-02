@@ -34,6 +34,10 @@ export const routes: Routes = [
         canActivate: [IntroGuard]
       },
     ]
+  },
+  {
+    path: 'songs-modal',
+    loadComponent: () => import('./songs-modal/songs-modal.page').then( m => m.SongsModalPage)
   }
 
 ];

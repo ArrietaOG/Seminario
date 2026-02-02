@@ -21,10 +21,26 @@ export class MusicService {
   );
 }
 
-  getLocalArtists() {
-    return dataArtists;
 
-    }
+  getSongsByAlbum(albumId: string) {
+    return fetch(`${this.urlServer}/tracks/album/${albumId}`).then(
+      response => response.json()
+    );
+  }
+
+getArtists() {
+  return fetch(`${this.urlServer}/artists`)
+    .then(res => res.json());
+}
+
+getSongsByArtist(artistId: number) {
+  return fetch(`${this.urlServer}/tracks/artist/${artistId}`)
+    .then(res => res.json());
+}
+
+
+
+  
   }
 
   

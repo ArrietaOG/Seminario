@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { IonButton } from '@ionic/angular/standalone';
 import { StorageService } from '../services/storage.service';
 import { Router } from '@angular/router'
 import { MusicService } from '../services/music.service';
+import { IonicModule, ModalController } from '@ionic/angular';
+import { SongsModalPage } from '../songs-modal/songs-modal.page';
 
 
 @Component({
@@ -14,7 +13,7 @@ import { MusicService } from '../services/music.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent,CommonModule, IonButton],
+  imports: [CommonModule, IonicModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomePage implements OnInit {
@@ -51,13 +50,17 @@ async cambiarcolor() {
   tracks: any;
   albums: any;
   localArtists: any;
-  constructor(private storageService: StorageService, private router: Router, private musicService: MusicService) {}
+  artists: any;
+
+  constructor(private storageService: StorageService, private router: Router, private musicService: MusicService, private modalCtrl: ModalController,) {}
 
   async ngOnInit() {
     await this.LoadStorageData();
     this.loadTracks();
     this.loadAlbums();
-    this.getLocalArtists();
+    this.loadArtists();
+    this.getArtists();
+
     const introVisto = await this.storageService.get('introVisto');
     if (!introVisto) {
     this.router.navigateByUrl('/intro');
@@ -93,11 +96,59 @@ async cambiarcolor() {
     this.router.navigateByUrl('/intro')
   }
 
-  getLocalArtists() {
-    this.localArtists = this.musicService.getLocalArtists();
-    console.log("Artistas: ",this.localArtists.artists)
+  async showSongs(albumId: string) {
+    console.log("album id", albumId)
+    const songs = await this.musicService.getSongsByAlbum(albumId)
+    console.log("songs: ", songs)
+    const modal = await this.modalCtrl.create({
+      component: SongsModalPage,
+      componentProps: {
+        songs: songs
+      }
+    });
+    modal.present();
+
   }
 
+loadArtists() {
+  this.musicService.getArtists().then(async (artists) => {
 
-  }
+    const artistsWithSongs = [];
+
+    for (let artist of artists) {
+      const songs = await this.musicService.getSongsByArtist(artist.id);
+
+      if (songs.length > 0) {
+        artistsWithSongs.push(artist);
+      }
+    }
+
+    this.artists = artistsWithSongs;
+
+  });
+}
+
+
+async showSongsByArtist(artistId: number) {
+  const songs = await this.musicService.getSongsByArtist(artistId);
+
+  const modal = await this.modalCtrl.create({
+    component: SongsModalPage,
+    componentProps: {
+      songs: songs
+    }
+  });
+
+  await modal.present();
+}
+
+getArtists() {
+  this.musicService.getArtists().then(artists => {
+    console.log("ARTISTAS COMPLETOS:", artists);
+    this.artists = artists;
+  });
+}
+
+
+}
 
