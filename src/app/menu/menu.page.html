@@ -17,6 +17,13 @@
         </ion-list>
       </div>
 
+        <ion-item button (click)="goFavorites()">
+          <ion-icon name="heart" slot="start"></ion-icon>
+          <ion-label>Favoritos</ion-label>
+        </ion-item>
+
+
+
       <div class="menu-bottom">
         <ion-button expand="full" color="danger" (click)="logout()">
           Cerrar sesión

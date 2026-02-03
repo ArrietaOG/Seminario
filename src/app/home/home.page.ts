@@ -56,7 +56,10 @@ async cambiarcolor() {
     preview_url: '',
     playing: false  
   };
-  currentSong: any;
+  currentSong: any = {};
+  newTime: any;
+  favorites: any[] = [];
+
 
   constructor(private storageService: StorageService, private router: Router, private musicService: MusicService, private modalCtrl: ModalController,) {}
 
@@ -65,7 +68,12 @@ async cambiarcolor() {
     this.loadTracks();
     this.loadAlbums();
     this.loadArtists();
-    this.getArtists();  
+    this.getArtists();
+
+    const favs = await this.storageService.get('favorites');
+  if (favs) {
+    this.favorites = favs;
+  }
 
     const introVisto = await this.storageService.get('introVisto');
     if (!introVisto) {
@@ -95,11 +103,6 @@ async cambiarcolor() {
       this.albums = albums;
       console.log(this.albums, "los albums")
     })
-  }
-
-    goBack(){
-    console.log("Ir al intro")
-    this.router.navigateByUrl('/intro')
   }
 
   async showSongs(albumId: string) {
@@ -169,6 +172,56 @@ getArtists() {
     console.log("ARTISTAS COMPLETOS:", artists);
     this.artists = artists;
   });
+}
+
+play() {
+  this.currentSong = new Audio(this.song.preview_url);
+  this.currentSong.play();
+  this.currentSong.addEventListener("timeupdate", ()=>{
+    this.newTime = this.currentSong.currentTime / this.currentSong?.duration;
+  })
+  this.song.playing = true;
+}
+
+pause() {
+  this.currentSong.pause();
+  this.song.playing = false;
+}
+
+formatTime(seconds: number) {
+  if (!seconds || isNaN(seconds)) return "0:00";
+  const minutes = Math.floor(seconds/60);
+  const remainingSeconds = Math.floor(seconds % 60);
+  return `${minutes}:${remainingSeconds.toString().padStart(2, '0')} `
+}
+
+getRemainingTime(){
+  if (!this.currentSong?.duration || !this.currentSong?.currentTime){
+    return 0;
+  }
+  return this.currentSong.duration - this.currentSong.currentTime;
+}
+
+async toggleFavorite(song: any) {
+  const index = this.favorites.findIndex(f => f.id === song.id);
+
+  if (index >= 0) {
+    this.favorites.splice(index, 1);
+    song.favorite = false;
+  } else {
+    song.favorite = true;
+    this.favorites.push(song);
+  }
+
+  await this.storageService.set('favorites', this.favorites);
+}
+
+isFavorite(song: any): boolean {
+  return this.favorites.some(f => f.id === song.id);
+}
+
+goFavorites(){
+  this.router.navigateByUrl('/favorites');
 }
 
 

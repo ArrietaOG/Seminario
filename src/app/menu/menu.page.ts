@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule, MenuController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { StorageService } from '../services/storage.service';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-menu',
@@ -17,13 +18,16 @@ export class MenuPage implements OnInit {
   constructor(
     private storageService: StorageService,
     private navCtrl: NavController,
-    private menu: MenuController) { }
+    private menu: MenuController,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
   }
 
   goToIntro(){
   console.log("ir hacia la intro")
+  this.router.navigateByUrl('/intro')
   }
 
   async logout() {
@@ -31,7 +35,13 @@ export class MenuPage implements OnInit {
   this.navCtrl.navigateRoot('/login');
 }
 
-  closeMenu(){
+goFavorites() {
     this.menu.close();
+    this.router.navigate(['/menu/favorites']);
+  }
+
+  goHome() {
+    this.menu.close();
+    this.router.navigate(['/menu/home']);
   }
 }

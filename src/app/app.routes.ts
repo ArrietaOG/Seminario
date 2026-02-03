@@ -33,11 +33,16 @@ export const routes: Routes = [
         loadComponent: () => import('./home/home.page').then(m => m.HomePage),
         canActivate: [IntroGuard]
       },
+      {
+        path: 'favorites',
+        loadComponent: () => import('./favorites/favorites.page').then( m => m.FavoritesPage)
+      },
     ]
   },
   {
     path: 'songs-modal',
     loadComponent: () => import('./songs-modal/songs-modal.page').then( m => m.SongsModalPage)
-  }
+  },
+
 
 ];

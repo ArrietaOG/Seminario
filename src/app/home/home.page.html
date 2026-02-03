@@ -1,17 +1,21 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>HOME</ion-title>
+
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="cambiarcolor()">
+        <ion-icon name="color-palette-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content [style.--background]="colorActual">
-
-  <ion-button expand="full" shape="round" (click)="goBack()">
-    Ir al intro
-  </ion-button>
 
   <swiper-container 
     slides-per-view="1.2"
@@ -25,34 +29,57 @@
       (click)="showSongsByArtist(artist.id)">
 
       <div class="artist-card">
-
-        <img 
-          [src]="artist.image"
-          class="artist-img">
-
+        <img [src]="artist.image" class="artist-img">
         <h3>{{ artist.name }}</h3>
-
       </div>
 
     </swiper-slide>
 
   </swiper-container>
 
-  <div class="storage-box">
-    <h3>Demo Ionic Storage</h3>
-    <p>Tema actual: {{ colorActual === coloruno ? 'Azul' : 'Negro' }}</p>
+  <div class="welcome-box">
+    <h2>🎵 Explora tu música</h2>
+    <p>Selecciona un artista y disfruta sus mejores canciones</p>
   </div>
 
-  <ion-button expand="full" shape="round" (click)="cambiarcolor()">
-    Cambiar Tema y Guardar
-  </ion-button>
-
 </ion-content>
+
 <ion-footer>
-  <ion-text color="danger" *ngIf="!song?.name">
-    <h2>Aqui aparece nuestra cancion</h2>
-  </ion-text>
-  <ion-text color="primary" *ngIf="song?.name">
-    <h2>{{song.name}}</h2>
-  </ion-text>
+  <div class="player">
+
+    <div class="song-info">
+      <ion-icon name="musical-notes-outline"></ion-icon>
+      <span>{{ song.name || "Selecciona una canción" }}</span>
+    </div>
+
+    <div class="time-row">
+      <span>{{ formatTime(currentSong?.currentTime) || "0:00" }}</span>
+      <span>{{ formatTime(getRemainingTime()) || "0:00" }}</span>
+    </div>
+
+    <ion-progress-bar [value]="newTime || 0"></ion-progress-bar>
+
+    <div class="controls">
+      <ion-icon 
+  name="heart"
+  [class.fav]="isFavorite(song)"
+  (click)="toggleFavorite(song)">
+</ion-icon>
+
+
+      <ion-icon 
+        name="play-circle" 
+        *ngIf="!song.playing" 
+        (click)="play()">
+      </ion-icon>
+
+      <ion-icon 
+        name="pause-circle" 
+        *ngIf="song.playing" 
+        (click)="pause()">
+      </ion-icon>
+    </div>
+
+  </div>
 </ion-footer>
+
