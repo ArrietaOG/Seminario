@@ -19,7 +19,7 @@ import { SongsModalPage } from '../songs-modal/songs-modal.page';
 export class HomePage implements OnInit {
 coloruno = 'var(--color-uno)';
 colordos = 'var(--color-dos)';
-colorActual = this.coloruno;
+colorActual = this.coloruno;  
 
   genres = [
     {
@@ -51,6 +51,12 @@ async cambiarcolor() {
   albums: any;
   localArtists: any;
   artists: any;
+  song: any = {
+    name: '',
+    preview_url: '',
+    playing: false  
+  };
+  currentSong: any;
 
   constructor(private storageService: StorageService, private router: Router, private musicService: MusicService, private modalCtrl: ModalController,) {}
 
@@ -59,7 +65,7 @@ async cambiarcolor() {
     this.loadTracks();
     this.loadAlbums();
     this.loadArtists();
-    this.getArtists();
+    this.getArtists();  
 
     const introVisto = await this.storageService.get('introVisto');
     if (!introVisto) {
@@ -106,6 +112,12 @@ async cambiarcolor() {
         songs: songs
       }
     });
+    modal.onDidDismiss().then((result)=>{
+      if (result.data){
+        console.log("cancion recibida ", result.data)
+        this.song = result.data
+      }
+    })  
     modal.present();
 
   }
@@ -139,8 +151,18 @@ async showSongsByArtist(artistId: number) {
     }
   });
 
+  modal.onDidDismiss().then((result) => {
+    console.log("Modal cerrado", result);
+
+    if (result.data) {
+      console.log("Canción recibida:", result.data);
+      this.song = result.data;
+    }
+  });
+
   await modal.present();
 }
+
 
 getArtists() {
   this.musicService.getArtists().then(artists => {

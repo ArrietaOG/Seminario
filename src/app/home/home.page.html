@@ -48,3 +48,11 @@
   </ion-button>
 
 </ion-content>
+<ion-footer>
+  <ion-text color="danger" *ngIf="!song?.name">
+    <h2>Aqui aparece nuestra cancion</h2>
+  </ion-text>
+  <ion-text color="primary" *ngIf="song?.name">
+    <h2>{{song.name}}</h2>
+  </ion-text>
+</ion-footer>
